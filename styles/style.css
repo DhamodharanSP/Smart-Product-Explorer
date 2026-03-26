@@ -8,17 +8,53 @@
 
 :root {
     --primary-color: #102e21;
-    --secondary-color: #f8ff7b;
+    --secondary-color: #909090;
+    --header-color: #333;
 }
 
 body {
     background: var(--secondary-color);
 }
 
+/* Header */
+.header {
+    height: 5rem;
+    background: var(--header-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.logo {
+    background-color: #fff;
+    padding: 1rem;
+    margin: .5rem;
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+}
+
+.search-input {
+    padding: .5rem;
+    border-radius: 1rem 0;
+    border: 2px solid var(--secondary-color);
+}
+
+.search-input:focus {
+    outline: none;
+    border: 2px solid orange;
+}
+
+/* Products */
 .product-container {
     display: flex;
     flex-flow: row wrap;
-    
+    padding: 1rem;
+    margin-top: 5rem;
 }
 
 .product {

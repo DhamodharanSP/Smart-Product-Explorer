@@ -1,5 +1,6 @@
 import { loadProducts } from "./products.js";
 import { state } from "./state.js";
+import { getProcessedProducts } from "./utils.js";
 
 const productContainer = document.querySelector('.js-product-container');
 
@@ -29,8 +30,12 @@ function errorLoadingProducts(error)
 
 function renderProducts()
 {
+    const filteredProducts = getProcessedProducts();
+    if(filteredProducts.length === 0) {
+        return '<h1>No Products Found</h1>';
+    }
     let productsGrid = '';
-    state.products.forEach((product) => {
+    filteredProducts.forEach((product) => {
         productsGrid += `
             <div class="product">
                 <div class="img-container">
@@ -40,8 +45,8 @@ function renderProducts()
                     <div class="product-title">${product.title}</div>
                     <div class="product-description">${product.description}</div>
                     <div class="product-rating">
-                        <div class="product-stars">${product.rating.rate} star</div>
-                        <div class="product-review-count">${product.rating.count}</div>
+                        <div class="product-stars">${product.rating?.rate ?? 0} star</div>
+                        <div class="product-review-count">${product.rating?.count ?? 0}</div>
                     </div>
                     <div class="product-price">$${product.price}</div>
                 </div>
@@ -50,3 +55,12 @@ function renderProducts()
     });
     return productsGrid;
 }
+
+const searchInput = document.querySelector('.js-search-input');
+
+searchInput.addEventListener('input', (event) => {
+    const inputField = event.target;
+    const search = inputField.value;
+    state.searchQuery = search.trim();
+    renderPage();
+})
