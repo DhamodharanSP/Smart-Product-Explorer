@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #102e21;
+    --secondary-color: #f8ff7b;
+}
+
+body {
+    background: var(--secondary-color);
+}
+
+.product-container {
+    display: flex;
+    flex-flow: row wrap;
+    
+}
+
+.product {
+    background-color: #fff;
+    margin: .5rem;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 250px;
+    border-radius: .3rem;
+    box-shadow: 0 0 4px rgba(0,0,0, .5);
+    padding: 1rem;
+}
+
+.product-img {
+    width: 250px;
+    height: 250px;
+    border-bottom: 2px solid gray;
+    object-fit: contain;
+    object-position: center;
+}
+
+.product-title {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: .4rem 0;
+}
+
+.product-description {
+    margin: .2rem;
+}
+
+.product-rating {
+    display: flex;
+    padding: .2rem;
+}
+
+.product-stars {
+    color: orange;
+    font-weight: 700;
+    font-family: "Roboto", sans-serif;
+}
+
+.product-review-count {
+    color: rgb(40, 145, 54);
+    font-weight: bold;
+    margin: 0 .5rem;
+}
+
+.product-price {
+    font-family: "Roboto", sans-serif;
+    margin: .2rem;
+    font-weight: 500;
+}
