@@ -3,6 +3,7 @@ import { state, setState } from "./data/state.js";
 import { getProcessedProducts } from "./utils/processProducts.js";
 import { openCategoryFilter, closeCategoryFilter, displaySelectedCategory } from "./utils/filterCategory.js";
 import { openSortbyFilter, closeSortbyFilter, displaySortOption } from "./utils/filterSortby.js";
+import { debounceDelay } from "./config.js";
 
 const productContainer = document.querySelector('.js-product-container');
 
@@ -60,13 +61,25 @@ function generateProduct(product)
 }
 
 // Search
-const searchInput = document.querySelector('.js-search-input');
+function debounce(callback, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            callback(...args);
+        }, delay);
+    }
+}
 
-searchInput.addEventListener('input', (event) => {
+const handleSearch = debounce((event) => {
     const inputField = event.target;
     const search = inputField.value;
     setState({ searchQuery: search.trim()});
-});
+}, debounceDelay);
+
+const searchInput = document.querySelector('.js-search-input');
+
+searchInput.addEventListener('input', handleSearch);
 
 // Category section
 const categoryContainer = document.querySelector('.js-category-section');
