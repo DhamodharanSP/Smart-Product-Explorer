@@ -1,6 +1,7 @@
-import { loadProducts } from "./products.js";
-import { state } from "./state.js";
-import { getProcessedProducts } from "./utils.js";
+import { loadProducts } from "./data/products.js";
+import { state } from "./data/state.js";
+import { getProcessedProducts } from "./utils/processProducts.js";
+import { openCategoryFilter, closeCategoryFilter, displaySelectedCategory } from "./utils/filter.js";
 
 const productContainer = document.querySelector('.js-product-container');
 
@@ -30,12 +31,12 @@ function errorLoadingProducts(error)
 
 function renderProducts()
 {
-    const filteredProducts = getProcessedProducts();
-    if(filteredProducts.length === 0) {
+    const processedProducts = getProcessedProducts();
+    if(processedProducts.length === 0) {
         return '<h1>No Products Found</h1>';
     }
     let productsGrid = '';
-    filteredProducts.forEach((product) => {
+    processedProducts.forEach((product) => {
         productsGrid += `
             <div class="product">
                 <div class="img-container">
@@ -56,6 +57,7 @@ function renderProducts()
     return productsGrid;
 }
 
+// Search
 const searchInput = document.querySelector('.js-search-input');
 
 searchInput.addEventListener('input', (event) => {
@@ -63,4 +65,23 @@ searchInput.addEventListener('input', (event) => {
     const search = inputField.value;
     state.searchQuery = search.trim();
     renderPage();
-})
+});
+
+// Category section
+const categoryContainer = document.querySelector('.js-category-section');
+
+categoryContainer.addEventListener('click', (event) => {
+    const targetElement = event.target;
+
+    const categoryButton = targetElement.closest('.js-category-btn');
+    const categoryOption = targetElement.closest('.js-category-option');
+
+    if(categoryButton) openCategoryFilter();
+    else if(categoryOption) {
+        const { category } = categoryOption.dataset;
+        state.selectedCategory = category;
+        displaySelectedCategory();
+        closeCategoryFilter();
+        renderPage();
+    }
+});

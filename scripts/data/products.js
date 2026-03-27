@@ -1,5 +1,6 @@
 import { state } from "./state.js";
-import { renderPage } from "./script.js";
+import { renderPage } from "../script.js";
+import { generateCategories } from "../utils/filter.js";
 
 export async function loadProducts()
 {
@@ -16,4 +17,6 @@ export async function loadProducts()
     }
     
     renderPage();
+
+    generateCategories();
 }

@@ -1,8 +1,8 @@
 export const state = {
     products: [],
     searchQuery: '',
-    category: 'all',
-    sort: 'default',
+    selectedCategory: 'all',
+    sortOption: 'default',
     loading: true,
     error: null
 }
