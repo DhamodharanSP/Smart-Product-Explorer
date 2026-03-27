@@ -28,15 +28,13 @@ function getProductsOnSortby(products)
     else return products;
 }
 
+const productProcessors = [
+    getProductsOnSearch,
+    getProductsOnCategory,
+    getProductsOnSortby
+];
+
 export function getProcessedProducts()
 {
-    let processedProducts = state.products;
-
-    processedProducts =  getProductsOnSearch(processedProducts);
-    
-    processedProducts = getProductsOnCategory(processedProducts);
-
-    processedProducts = getProductsOnSortby(processedProducts);
-
-    return processedProducts;
+    return productProcessors.reduce((accumulatedResult, processorFunction) => processorFunction(accumulatedResult) , state.products);
 }
