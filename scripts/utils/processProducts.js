@@ -22,9 +22,9 @@ function getProductsOnSortby(products)
 {
     const { sortOption } = state;
     if(sortOption === 'price-low-high')
-        return products.sort((a,b) => a.price - b.price);
+        return [...products].sort((a,b) => a.price - b.price);
     else if(sortOption === 'price-high-low')
-        return products.sort((a,b) => b.price - a.price);
+        return [...products].sort((a,b) => b.price - a.price);
     else return products;
 }
 
