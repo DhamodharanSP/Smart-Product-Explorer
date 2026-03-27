@@ -1,5 +1,5 @@
 import { loadProducts } from "./data/products.js";
-import { state } from "./data/state.js";
+import { state, setState } from "./data/state.js";
 import { getProcessedProducts } from "./utils/processProducts.js";
 import { openCategoryFilter, closeCategoryFilter, displaySelectedCategory } from "./utils/filterCategory.js";
 import { openSortbyFilter, closeSortbyFilter, displaySortOption } from "./utils/filterSortby.js";
@@ -64,26 +64,24 @@ const searchInput = document.querySelector('.js-search-input');
 searchInput.addEventListener('input', (event) => {
     const inputField = event.target;
     const search = inputField.value;
-    state.searchQuery = search.trim();
-    renderPage();
+    setState({ searchQuery: search.trim()});
 });
 
 // Category section
 const categoryContainer = document.querySelector('.js-category-section');
 
 categoryContainer.addEventListener('click', (event) => {
-    const targetElement = event.target;
+    const { target } = event;
 
-    const categoryButton = targetElement.closest('.js-category-btn');
-    const categoryOption = targetElement.closest('.js-category-option');
+    const categoryButton = target.closest('.js-category-btn');
+    const categoryOption = target.closest('.js-category-option');
 
     if(categoryButton) openCategoryFilter();
     else if(categoryOption) {
         const { category } = categoryOption.dataset;
-        state.selectedCategory = category;
+        setState({ selectedCategory: category});
         displaySelectedCategory();
         closeCategoryFilter();
-        renderPage();
     }
 });
 
@@ -91,17 +89,16 @@ categoryContainer.addEventListener('click', (event) => {
 const sortbyContainer = document.querySelector('.js-sortby-section');
 
 sortbyContainer.addEventListener('click', (event) => {
-    const targetElement = event.target;
+    const { target } = event;
 
-    const sortbyButton = targetElement.closest('.js-sortby-btn');
-    const sortbyOption = targetElement.closest('.js-sortby-option');
+    const sortbyButton = target.closest('.js-sortby-btn');
+    const sortbyOption = target.closest('.js-sortby-option');
 
     if(sortbyButton) openSortbyFilter();
     else if(sortbyOption) {
         const { sortby } = sortbyOption.dataset;
-        state.sortOption = sortby;
+        setState({ sortOption: sortby});
         displaySortOption();
         closeSortbyFilter();
-        renderPage();
     }
 });
