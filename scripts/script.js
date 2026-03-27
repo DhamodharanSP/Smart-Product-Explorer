@@ -63,11 +63,9 @@ function generateProduct(product)
 // Search
 function debounce(callback, delay) {
     let timeoutId;
-    return function(...args) {
+    return (...args) => {
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-            callback(...args);
-        }, delay);
+        timeoutId = setTimeout(() => callback(...args), delay);
     }
 }
 
