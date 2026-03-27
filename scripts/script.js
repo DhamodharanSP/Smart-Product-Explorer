@@ -1,7 +1,8 @@
 import { loadProducts } from "./data/products.js";
 import { state } from "./data/state.js";
 import { getProcessedProducts } from "./utils/processProducts.js";
-import { openCategoryFilter, closeCategoryFilter, displaySelectedCategory } from "./utils/filter.js";
+import { openCategoryFilter, closeCategoryFilter, displaySelectedCategory } from "./utils/filterCategory.js";
+import { openSortbyFilter, closeSortbyFilter, displaySortOption } from "./utils/filterSortby.js";
 
 const productContainer = document.querySelector('.js-product-container');
 
@@ -82,6 +83,25 @@ categoryContainer.addEventListener('click', (event) => {
         state.selectedCategory = category;
         displaySelectedCategory();
         closeCategoryFilter();
+        renderPage();
+    }
+});
+
+// SortBy section
+const sortbyContainer = document.querySelector('.js-sortby-section');
+
+sortbyContainer.addEventListener('click', (event) => {
+    const targetElement = event.target;
+
+    const sortbyButton = targetElement.closest('.js-sortby-btn');
+    const sortbyOption = targetElement.closest('.js-sortby-option');
+
+    if(sortbyButton) openSortbyFilter();
+    else if(sortbyOption) {
+        const { sortby } = sortbyOption.dataset;
+        state.sortOption = sortby;
+        displaySortOption();
+        closeSortbyFilter();
         renderPage();
     }
 });

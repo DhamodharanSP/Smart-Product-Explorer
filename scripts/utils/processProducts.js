@@ -18,6 +18,16 @@ function getProductsOnCategory(products)
     return products.filter(product => selectedCategory === 'all' || product.category === selectedCategory );
 }
 
+function getProductsOnSortby(products)
+{
+    const { sortOption } = state;
+    if(sortOption === 'price-low-high')
+        return products.sort((a,b) => a.price - b.price);
+    else if(sortOption === 'price-high-low')
+        return products.sort((a,b) => b.price - a.price);
+    else return products;
+}
+
 export function getProcessedProducts()
 {
     let processedProducts = state.products;
@@ -25,6 +35,8 @@ export function getProcessedProducts()
     processedProducts =  getProductsOnSearch(processedProducts);
     
     processedProducts = getProductsOnCategory(processedProducts);
+
+    processedProducts = getProductsOnSortby(processedProducts);
 
     return processedProducts;
 }

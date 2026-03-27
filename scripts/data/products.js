@@ -1,6 +1,7 @@
 import { state } from "./state.js";
 import { renderPage } from "../script.js";
-import { generateCategories } from "../utils/filter.js";
+import { generateCategories } from "../utils/filterCategory.js";
+import { generateSortbyFilters } from "../utils/filterSortby.js";
 
 export async function loadProducts()
 {
@@ -9,7 +10,6 @@ export async function loadProducts()
         const data = await response.json();
         state.products = data;
         state.loading = false;
-        console.log(state.products);
     }
     catch(error) {
         state.error = error;
@@ -19,4 +19,6 @@ export async function loadProducts()
     renderPage();
 
     generateCategories();
+
+    generateSortbyFilters();
 }
