@@ -36,26 +36,27 @@ function renderProducts()
     if(processedProducts.length === 0) {
         return '<h1>No Products Found</h1>';
     }
-    let productsGrid = '';
-    processedProducts.forEach((product) => {
-        productsGrid += `
-            <div class="product">
-                <div class="img-container">
-                    <img src="${product.image}" alt="bush" class="product-img">
-                </div>
-                <div class="product-content">
-                    <div class="product-title">${product.title}</div>
-                    <div class="product-description">${product.description}</div>
-                    <div class="product-rating">
-                        <div class="product-stars">${product.rating?.rate ?? 0} star</div>
-                        <div class="product-review-count">${product.rating?.count ?? 0}</div>
-                    </div>
-                    <div class="product-price">$${product.price}</div>
-                </div>
+    return processedProducts.map(product => generateProduct(product)).join('');
+}
+
+function generateProduct(product)
+{
+    return `
+        <div class="product">
+            <div class="img-container">
+                <img src="${product.image}" alt="bush" class="product-img">
             </div>
-        `;
-    });
-    return productsGrid;
+            <div class="product-content">
+                <div class="product-title">${product.title}</div>
+                <div class="product-description">${product.description}</div>
+                <div class="product-rating">
+                    <div class="product-stars">${product.rating?.rate ?? 0} star</div>
+                    <div class="product-review-count">${product.rating?.count ?? 0}</div>
+                </div>
+                <div class="product-price">$${product.price}</div>
+            </div>
+        </div>
+    `;
 }
 
 // Search
